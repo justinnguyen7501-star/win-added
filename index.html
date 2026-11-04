@@ -127,7 +127,7 @@ body{margin:0}img{max-width:100%}
   <section>
     <div class="eyebrow">How this works</div>
     <div class="method">
-      <p><b>Win chance added.</b> A model trained on every minute of every game estimates each team's chance to win. When a player finishes an item, we compare their win chance just before the purchase with 10 minutes later. Items that reliably push that number up rank higher.</p>
+      <p><b>Win chance added.</b> A model trained on every minute of every game estimates each team's chance to win. When a player finishes an item, we compare their win chance just before the purchase with 10 minutes later. Items that reliably push that number up rank higher. The method builds on <a href="https://aaltodoc.aalto.fi/items/c1f92b5b-66f2-4742-b746-7d1a1b4d093e" style="color:inherit">xPetu's master's thesis</a> (Aalto University, 2024), which first applied win probability added to League items.</p>
       <p><b>Fair comparison.</b> Players who are already ahead buy items sooner, so every result is adjusted for how far ahead the player was, the game minute, their keystone and their server.</p>
       <p><b>Better / Worse / Too close.</b> The bar shows the range the true effect most likely falls in (95%). Green means the whole range is above zero, red means the whole range is below. Grey means we can't tell it apart from an average purchase yet. Options with fewer than 100 games are marked.</p>
       <p><b>Limits.</b> Only the first three items are measured so far. Results cover patches 16.20 to 16.21 and will refresh with each new patch.</p>

@@ -190,6 +190,12 @@ function chainDefaults(v){
 // Table for the next item given everything picked so far. Falls back to "any starter",
 // then (items 4-6) to all earlier builds, and says which one it is showing.
 function stepTable(c, k){
+  const tb = stepTableRaw(c, k);
+  if(!tb) return null;
+  const owned = new Set(state.sel.slice(0, k-1));  // never offer an item already in the build
+  return {...tb, rows: tb.rows.filter(o=>!owned.has(o.item))};
+}
+function stepTableRaw(c, k){
   const prev = state.sel.slice(0, k-1);
   const exact = state.st ? ["@"+state.st, ...prev] : prev;
   if(k===1 && !state.st) return {rows:c.first, note:"All players"};

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://justinnguyen7501-star.github.io/win-added/sitemap.xml

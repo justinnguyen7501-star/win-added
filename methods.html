@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Win Added works</title>
+<meta name="description" content="How Win Added measures League of Legends items, runes and skill orders by the change in win chance, and what its limits are.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+:root{--bg:#eef2f6;--panel:#fff;--ink:#14202c;--muted:#5a6878;--line:#d5dde6;--accent:#0b6e8a}
+@media (prefers-color-scheme: dark){:root{--bg:#0e161f;--panel:#16212c;--ink:#e4ebf2;--muted:#93a1b0;--line:#273544;--accent:#4fb8d6;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  padding:0 max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px))}
+.wrap{max-width:720px;margin:0 auto}
+header{padding-block:28px 8px}
+a{color:var(--accent)}
+.brand{font:800 24px "Bricolage Grotesque","Segoe UI",sans-serif;text-decoration:none;color:var(--ink)}
+.brand span{color:var(--accent)}
+h1{font:800 34px/1.15 "Bricolage Grotesque","Segoe UI",sans-serif;margin:24px 0 4px;text-wrap:balance}
+h2{font:700 20px "Bricolage Grotesque","Segoe UI",sans-serif;margin:28px 0 6px}
+.date{color:var(--muted);font-size:14px}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+</style>
+</head>
+<body><div class="wrap">
+<header><a class="brand" href="./">Win<span>Added</span></a></header>
+<h1>How Win Added works</h1>
+<div class="date">The method, in plain words</div>
+
+<h2>The idea</h2>
+<p>Most build sites rank items by win rate. Win rate mostly tells you who buys an item: players who are already ahead buy luxury items, players who are behind buy defensive ones. Win Added asks a different question: after a player finishes an item, does their chance of winning go up more than it would have otherwise?</p>
+
+<h2>Step 1: a win chance for every minute</h2>
+<p>A model reads every minute of every ranked game we collect (gold, levels, kills, towers, dragons, the champions on each team and more) and estimates each team's chance to win at that minute. It is checked on games it never saw during training: when it says 70%, the team wins about 70% of the time. Its current accuracy is shown on each champion's page.</p>
+
+<h2>Step 2: before and after each purchase</h2>
+<p>When a player finishes an item, we take their win chance just before the purchase and again 10 minutes later. The difference is that purchase's win added. The same is done for starting items (from the start of the game to 10 minutes in) and for skill order (from the moment the first ability reaches rank 3).</p>
+
+<h2>Step 3: a fair comparison</h2>
+<p>Players who are winning buy sooner and buy different things. So every result is adjusted for how far ahead the player was, how the last 5 minutes went, the game minute, their keystone and their server. Each table also only compares players in the same spot: the same starter and the same earlier items.</p>
+
+<h2>Step 4: how sure are we?</h2>
+<p>Each result comes with a range the true effect most likely falls in (95%). We get it by re-drawing the set of games a thousand times. <b>Better</b> means the whole range is above zero, <b>Worse</b> means it is all below, and <b>Too close</b> means we can't tell yet. An item is only recommended if enough players take it (200+ games and at least 5% of players in that spot), because rare picks tested by the dozen sometimes look good by luck.</p>
+
+<h2>Runes</h2>
+<p>Runes are chosen before the game starts, so there is no "before". A rune's score is how often its players won, minus the win chance the model gave their games at minute 0 from the draft alone, compared with the average choice in the same row.</p>
+
+<h2>Enemy team filters</h2>
+<p>Each game's enemy team is tagged from the champions on it: high healing, 2+ tanks, magic heavy, physical heavy, CC heavy, dive. Picking a filter re-runs every table on just those games. Filters with too few games say so.</p>
+
+<h2>Patches</h2>
+<p>Each update checks every champion. If her abilities, her stats or the items she buys changed in the newest patch, or her results shifted, only that patch is used. Otherwise the last two patches are combined for more games.</p>
+
+<h2>Limits</h2>
+<p>This is a measurement from real games, not an experiment: we can't make a player buy a different item and replay the game. The adjustments remove the biggest sources of bias but not all of them. Games come from ranked solo queue in NA, EUW and KR across all ranks, so results describe the average ranked player. The deeper into a build, the fewer players match it exactly, so items 4 to 6 are compared across all earlier builds and are best read as a shortlist.</p>
+
+<h2>Credit</h2>
+<p>The method builds on <a href="https://aaltodoc.aalto.fi/items/c1f92b5b-66f2-4742-b746-7d1a1b4d093e">xPetu's master's thesis</a> (Aalto University, 2024), which first applied win probability added to League items.</p>
+<footer>
+<p><a href="./">Builds</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a></p>
+<p>Win Added isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+</footer>
+</div></body></html>
